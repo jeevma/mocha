@@ -1,0 +1,19 @@
+{
+  "name": "mocha",
+  "version": "1.0.0",
+  "description": "learning mocha",
+  "main": "calcMocha.js",
+  "scripts": {
+    "test": "mocha",
+    "test:awesome": "mocha --reporter mochawesome || true",
+    "open:report": "open mochawesome-report/mochawesome.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^10.0.0"
+  },
+  "devDependencies": {
+    "mochawesome": "^7.1.3"
+  }
+}

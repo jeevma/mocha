@@ -1,0 +1,98 @@
+2 Pre bundled function calls:
+describe() - Is a simple way to group our tests in Mocha. It provides us a feature to create a searies of tests. describe() takes two arguments
+The first one is the name/description of the test group
+The second one is the call back function which is a function that needs to be executed after another function has finished executing
+
+
+it() - Is a way to describe individual testcase. These test should be nested within describe() block
+
+describe('Description of the test suite', function() {
+
+    it('About the test', function() {
+        //Code to test the condition
+    });
+});
+
+-----------------------Hooks-----------------------------
+Four types of Hooks
+before() - runs before all tests in the code block
+after() - runs after all tests in the code blobk
+beforeEach() - runs before each test in the code block
+afterEach() - runs after each test in the code block
+
+------------------------Unique test features-------------------
+Mocha has features to explicitely tell which tests should be executed and which not
+
+Exclusive Tests - The exclusivity feature allows you to run only the specified suite or test-case by appending .only() to the function.
+For suite describe.only()
+For test it.only()
+
+Inclusive Tests - This feature is the inverse of .only(). By appending .skip(), you can tell mocha to simply ignore a test suite of testcase.
+For suite descrobe.skip()
+For testcase it.skip()
+
+Pending Test - Pending tests will be included in the test results, and marked as pending. A pending test is not considered as failed test.
+
+--------------------------------------Retry-------------------------------
+
+We can tell Mocha to execute the failed tests several times according to our requirements.
+Retry function is primarily used for End to End tests like selenium scripts
+Re-runs beforeEach/afterEach hooks bit NOT before/after hooks
+retry is not recommended for unit tests
+
+----------------------------Timeouts-----------------------------------------
+3 levels in which we can use Timeouts
+SUITE-LEVEL - suite level timeouts are used through out the test suites or disabled by using this.timeout(0)
+
+TEST-LEVEL - Test specific timeouts are used within the test cases level or use this.timoeout(0) to disable timeout completely
+_______________________________________________________________________________________________________________
+var assert = require('assert');
+
+describe('Mathematical Operations - Test Suite', function(){
+    this.timeout(5000);
+    var a = 10;
+    var b = 10;
+
+    it.only('Addition of two numbers', function(done){
+        this.timeout(500);
+        setTimeout(done,3000);
+        var c = a+b;
+        assert.equal(c,20);
+  });
+
+HOOK-LEVEL - Can be used in hooks
+_______________________________________
+
+var assert = require('assert');
+
+describe('Mathematical Operations - Test Suite', function(){
+
+    beforeEach(function(done){
+        this.timeout(500);
+        setTimeout(done,3000);
+  });
+
+----------------------------Reporters----------------------------------
+Mocha reporters are mostly terminal vased
+
+SPEC - This is the default reporter. The "spec" reporter outputs a hierarchical view according to the testcases
+
+DOT MATRIX - This is a series of characters which represent the testcases. Failures are highlighted in red exclamation marks(!),
+pending tests with a blue comma(,) and slow test as yellow
+
+Other types: NYAN, TAP, Landing Strip,List, Progress, JSON, Json Stream, Min, Doc
+
+----------------------Mocha Custom reporter--------------------------
+Refer: https://www.lambdatest.com/blog/how-to-generate-mocha-reports-with-mochawesome/
+Add the following in package.Json
+"scripts": {
+    "test": "mocha",
+    "test:awesome": "mocha --reporter mochawesome || true",
+    "open:report": "open mochawesome-report/mochawesome.html"
+  },
+
+To run the tests and generate a report, run the test:awesome script:
+
+npm run test:awesome
+
+Please refer: https://scriptable.com/blog/mocha-awesome
